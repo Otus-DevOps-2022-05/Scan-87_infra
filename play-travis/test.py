@@ -1,6 +1,7 @@
 import unittest
 
 # some really important comment
+# and another one
 class NumbersTest(unittest.TestCase):
 
     def test_equal(self):
