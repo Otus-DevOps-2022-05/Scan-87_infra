@@ -1,5 +1,4 @@
 #!/bin/bash
-
 echo 'Acquire::http::Proxy "http://otus:Qq123456!@89.208.142.171:3128/";' | sudo tee -a /etc/apt/apt.conf.d/proxy.conf
 echo 'Acquire::https::Proxy "http://otus:Qq123456!@89.208.142.171:3128/";' | sudo tee -a /etc/apt/apt.conf.d/proxy.conf
 
