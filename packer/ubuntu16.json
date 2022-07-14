@@ -3,7 +3,7 @@
 		{
 			"type": "yandex",
 			"use_ipv4_nat": "true",
-			"service_account_key_file": "/home/scan87/Nextcloud/OTUS/DevOps/homework/svc_keys/key.json",
+			"service_account_key_file": "key.json.example",
 			"folder_id": "b1ghir7l32lnuum8gn9m",
 			"source_image_family": "ubuntu-1604-lts",
 			"image_name": "reddit-base-{{timestamp}}",
