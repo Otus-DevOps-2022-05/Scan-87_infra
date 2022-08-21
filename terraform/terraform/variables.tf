@@ -1,10 +1,10 @@
 variable cloud_id{
   description = "Cloud"
-  default = "bpe"
+  default = "b1gpe"
 }
 variable folder_id {
   description = "Folder"
-  default = "b9m"
+  default = "b1gm"
 }
 variable zone {
   description = "Zone"
@@ -18,13 +18,13 @@ variable public_key_path {
 }
 variable image_id {
   description = "Image id"
-  default = "fa5"
+  default = "fda5"
 }
 variable subnet_id{
   description = "Subnet id"
-  default = "en"
+  default = "e9pn"
 }
 variable service_account_key_file{
   description = "Service account key" 
-  default = "/***/key.json"
+  default = "/***/svc_keys/key.json"
 }

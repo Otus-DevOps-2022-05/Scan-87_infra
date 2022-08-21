@@ -1,6 +1,6 @@
 provider "yandex" {
   service_account_key_file = var.service_account_key_file
-  token	= "AS8"
+  token	= "AQAAAAAkL6SLeLS8"
   cloud_id = var.cloud_id
   folder_id = var.folder_id
   zone = var.zone
@@ -30,7 +30,7 @@ host = yandex_compute_instance.app.network_interface.0.nat_ip_address
 user = "ubuntu"
 agent = false
 # путь до приватного ключа
-private_key = file("/***/appuser")
+private_key = file("~/Nextcloud/OTUS/DevOps/homework/ssh/appuser")
 }
 
 provisioner "file" {
