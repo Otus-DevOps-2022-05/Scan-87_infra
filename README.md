@@ -56,3 +56,83 @@ $ yc compute instance create \
 testapp_IP = 51.250.87.216
 testapp_port = 9292
 ```
+
+## 05 Terraform-1
+Для выполнения задания нужна версия 0.12.8
+```
+$ wget https://releases.hashicorp.com/terraform/0.12.8/terraform_0.12.8_linux_amd64.zip
+```
+
+Создаем директорию **terraform-1**, в ней файл **main.tf**
+
+Описываем провайдер, инициализируем, добавляем созданный рессурс
+Проверив информацию можем создать инстанс командой 
+```
+$ terraform apply
+
+...
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+```
+
+Узнаем адрес сервера
+```
+$ ../../../terraform-0-12-8/terraform show | grep ip
+ip_address         = "10.128.0.9"
+ipv4               = true
+ipv6               = false
+nat_ip_address     = "51.250.0.130"
+nat_ip_version     = "IPV4"
+```
+Пробуем подключиться по **ssh** - nope!
+Почему? Мы не указали ключ!
+
+Добавим его в **main.tf**
+```
+resource "yandex_compute_instance" "app" {
+metadata = {
+ssh-keys = "ubuntu:${file("~/Nextcloud/OTUS/DevOps/homework/ssh/appuser.pub")}"
+}
+...
+}
+```
+
+Сносим машину и собираем ее заново
+```
+$ ../../../terraform-0-12-8/terraform destroy
+...
+$ ../../../terraform-0-12-8/terraform apply
+```
+### Provisioners
+Provisioner в terraform вызываются в момент создания / удаления рессурсов и позволяют выполнять команды на удаленной или локальной машине. Их используют для управления конфигурацией или начлаьной настройки системы. Используем провижинер для деплоя последней версии приложения на ВМ.
+
+Вставим в resource в **main.tf** 
+```
+provisioner "file" {  
+source = "files/puma.service"  
+destination = "/tmp/puma.service"  
+}
+```
+
+Теперь создадим директорию **files**, в которую добавим файл **puma.service**
+```
+[Unit]
+Description=Puma HTTP Server
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/reddit
+ExecStart=/bin/bash -lc 'puma'
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Проверяем работу и настраиваем файл с переменными **variables.tf**
+
+Проверяем все на работоспособность и добавляем баллансировщик нагрузки в файле **lb.tf** 
+Note: баллансировщик работает так себе, поскольку нет синхронизации базы данных
+
+
